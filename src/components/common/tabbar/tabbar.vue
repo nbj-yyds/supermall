@@ -17,6 +17,7 @@ name:'tabBar',
   width: 100%;
   bottom: 0;
   left: 50%;
+  right: 50%;
   transform: translateX(-50%);
   background-color: rgb(231, 231, 231);
   border:1px solid #ccc;

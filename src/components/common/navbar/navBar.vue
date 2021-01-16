@@ -17,7 +17,13 @@ export default {
     display: flex;
     background-color: var(--color-tint);
     line-height: 45px;
-    box-shadow: 0 1px 1px #fff;
+    position: fixed; 
+    top: 0;
+    left: 50%; 
+    right: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    z-index: 999;
 }
 .nav-bar .left  ,  .nav-bar .right {
     width: 60px; 

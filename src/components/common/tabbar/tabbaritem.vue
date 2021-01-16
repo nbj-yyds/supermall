@@ -53,6 +53,7 @@ computed: {
  text-align: center;
  height: 50px;
  font-size: 14px;
+ margin-top: 5px;
 }
 #tab-bar .item img {
     width: 24px;
