@@ -5,11 +5,14 @@
           <h3 class="title">购物街</h3>
         </template>
       </nav-bar>
+      <scroll @scroll='hideThenShow'  class="content" ref="scroll" :probe-type="3" :pull-up-load='true' @loadmore='loadmore'>
 <home-swiper :banners='banners'></home-swiper> 
 <recommend-view :recommends='recommends'></recommend-view>
 <feature-view></feature-view>
 <tab-control class="tab_Control" :titles='["流行","新款","精选"]' @changeList='changeList'></tab-control>
 <goods-list  :goods='showGoods'></goods-list>
+</scroll>
+<back-top v-show="show" @click.native='backtop'></back-top>
   </div>
 </template>
 
@@ -20,7 +23,9 @@ import featureView from './childcomps/FeatureView'
 import goodsList from '../../components/content/tabbar/goods/goodsList'
 
 import navBar from  '../../components/common/navbar/navBar'
+import scroll from '../../components/common/scroll/scroll'
 import tabControl from '../../components/content//tabbar/tabControl/tabControl'
+import  backTop from '../../components/content/backTop/backtop'
 
 import {getHomeMultidata,getHomeGoods} from 'network/home'
 
@@ -33,7 +38,9 @@ export default {
      goodsList,
 
      navBar,
-     tabControl
+     tabControl,
+     scroll,
+     backTop,
    } , 
    data() {
      return {
@@ -44,7 +51,8 @@ export default {
         "new":{page:0 , list:[]},
         "sell":{page:0 , list:[]}
       }, 
-      currentType:'pop'
+      currentType:'pop' , 
+      show:false,
      }
    },
    
@@ -55,6 +63,9 @@ export default {
     this.getHomeGoods('pop')
     this.getHomeGoods('new')
     this.getHomeGoods('sell')
+   },
+   updated() {
+     this.$refs.scroll.scroll.refresh()
    },
    methods: {  //把处理数据逻辑单独拿出来
    /* 事件相关 */ 
@@ -71,6 +82,22 @@ export default {
        break ; 
 
      }
+   }, 
+   backtop() {
+     this.$refs.scroll.scrollTo(0,0,500); //500ms到达指定位置
+   },
+   hideThenShow(position) {
+       if(Math.abs(position.y)>=1000) {
+         this.show=true;
+       } 
+       else {
+         this.show=false;
+       }
+   },
+   loadmore() {
+     console.log('上拉加载中');
+     this.getHomeGoods(this.currentType)
+     this.$refs.scroll.finishPullUp()
    },
 
 
@@ -103,8 +130,12 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.container {
+  height: 100vh;
+  padding-top: 44px;
+  position: relative;
+}
  .title {
    font-size: 20px;
    color: #fff;
@@ -114,5 +145,13 @@ export default {
    position: sticky;
    top: 45px;
  }
- 
+.content {
+  /* height:100%;
+  overflow: hidden;
+  margin-top:44px; */
+  overflow: hidden;
+  position: absolute;
+  top: 44px;
+  bottom: 49px;
+}
 </style>

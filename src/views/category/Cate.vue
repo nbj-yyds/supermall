@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper" ref="aaa">
       <ul class="content">
+        <!-- <button @click='click'>按钮</button> -->
         <li>1</li>
         <li>2</li>
         <li>3</li>
@@ -322,9 +323,20 @@ export default {
     console.log(document.querySelector('.wrapper'));
     console.log(this.$refs.aaa);
    this.scroll= new BScroll(document.querySelector('.wrapper'),{
-
+     probeType:2 , 
+     pullUpLoad:true,
    })
+    this.scroll.on('scroll',(position)=>{
+      console.log(position);
+    })
+    this.scroll.on('pullingUp',()=>{
+      console.log('上拉加载更多');
+    })
+  } , 
+  methods: {
+   
   }
+  
 }
 </script>
 

@@ -4,7 +4,7 @@
         <slot></slot>
       </div>
       <div class="indicator">
-        <slot name="indicator" v-if="showIndicator && slideCount>1">
+        <slot name="indicator" v-if="showIndicator && slideCount>0">
           <div v-for="(item, index) in slideCount" class="indi-item" :class="{active: index === currentIndex-1}" :key="index"></div>
         </slot>
       </div>
@@ -48,7 +48,7 @@
 
         // 2.开启定时器
         this.startTimer();
-      }, 100)
+      }, 700)
     },
     methods: {
 		  /**
@@ -118,9 +118,10 @@
         // 1.获取要操作的元素
         let swiperEl = document.querySelector('.swiper');
         let slidesEls = swiperEl.getElementsByClassName('slide');
-
         // 2.保存个数
-        this.slideCount = slidesEls.length;
+        this.slideCount=slidesEls.length;
+        console.log(this.slideCount);
+
 
         // 3.如果大于1个, 那么在前后分别添加一个slide
         if (this.slideCount > 1) {

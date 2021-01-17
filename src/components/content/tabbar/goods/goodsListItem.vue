@@ -39,6 +39,6 @@ props: {
 }
 .cfav {
     float: right;
-    margin-right:40px
+    margin-right:26px
 }
 </style>
