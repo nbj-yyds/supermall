@@ -6,6 +6,7 @@ const Home = () => import("../views/home/Home.vue");
 const Category = () => import("../views/category/Cate.vue");
 const Cart = () => import("../views/cart/Cart.vue");
 const My = () => import("../views/my/My.vue");
+const Detail = () => import("../views/detail/detail.vue");
 const routes = [
   {
     path: "/",
@@ -26,6 +27,10 @@ const routes = [
   {
     path: "/my",
     component: My
+  },
+  {
+    path: "/detail",
+    component: Detail
   }
 ];
 

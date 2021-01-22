@@ -1,6 +1,6 @@
 <template>
   <div class="item">
-      <img :src="goodsItem.show.img" alt="">
+      <img :src="goodsItem.show.img" alt="" @load='imgload' @click="itemclick">
       <div>
           <p class="txt-cut">{{goodsItem.title}}</p>
           <span class="price">{{goodsItem.price}}元</span>
@@ -18,6 +18,15 @@ props: {
         default() {
             return  {}
         }
+    }
+}, 
+methods: {
+    imgload() {
+        //事件总线  
+        this.$bus.$emit('itemImageLoad')
+    } , 
+    itemclick() {
+        this.$router.push({path:'/detail' , query:{iid:this.goodsItem.iid}})
     }
 }
 }
